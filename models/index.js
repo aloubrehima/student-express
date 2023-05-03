@@ -5,20 +5,23 @@ let env = process.env.NODE_ENV || 'development'  // set a default if no enviromm
 
 console.log('using environment' + env)
 
-let configFile = require(__dirname + '/../config.json')
-let config = configFile[env]
+let configFile = require(__dirname + '/../config.json') // load database configuration from json file
+let config = configFile[env]  //select configuration based on the env
 
-let password = process.env.DB_PASSWORD
+let password = process.env.DB_PASSWORD  // get the db password from an env variable
 config.password = password
 
-let db =  {}
+let db =  {}   // will hold the db models
 
-let sequelize = new Sequelize(config)
+let sequelize = new Sequelize(config) // create a new Sequelize instance with the loaded config
 
+// // Import the student model and create it using the Seq instance and DataType
 let studentModelCreate = require('./student')
 let studentModel = studentModelCreate(sequelize, DataTypes)
 
+// add the student model to the db object 
 db[studentModel.name] = studentModel
+
 
 db.sequelize = sequelize // sequelle configuration
 db.Sequelize = Sequelize // Sequelle library

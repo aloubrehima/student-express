@@ -45,7 +45,7 @@ export default {
             }
 
             if (this.errors.length == 0) {
-                let student = { name: this.newStudentName, starID: this.newStarID, present: false }
+                let student = { name: this.newStudentName, StarID: this.newStarID, present: false }
                 this.$emit('student-added', student)
                 this.newStudentName = ''
                 this.newStarID = ''

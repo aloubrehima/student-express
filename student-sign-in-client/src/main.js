@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import StudentService from '@./services/StudentService'
+import StudentService from '@/services/StudentService'
 
 let app = createApp(App)
 

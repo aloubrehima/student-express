@@ -30,35 +30,35 @@ export default {
     StudentTable,
     StudentMessage
   },
-  mounted() {
-    // load all students - mae request to API
-    this.updateStudent
+  mounted() { // mount the component and updates student data from API
+    // load all students - make request to API
+    this.updateStudent()
   },
   methods: {
-    updateStudent() {
+    updateStudent() { //method to update the list of student from the API
       this.$student_api.getAllStudents().then( students => {
         this.students = students
       }).catch( () => alert('Unable to fetch student list'))
     },
-    newStudentAdded(student) {
+    newStudentAdded(student) { //method to add a student to the API
       this.$student_api.addStudent(student).then( () =>{
-        this.updateStudents()
+        this.updateStudent()
       })
       .catch( err => {
         let msg = err.response.data.join(',')
         alert('Error adding student\n' + msg)
       })
     },
-    studentArrivedOrLeft(student, present) {
+    studentArrivedOrLeft(student, present) { //method to update a student from the API
       student.present = present 
       this.$student_api.updateStudent(student).then( () => {
         this.mostRecentStudent = student
-        this.updateStudents()
+        this.updateStudent()
       }).catch( () => alert('Unable to update student'))
     },
-    studentDeleted(student) {
+    studentDeleted(student) { //method to delete a student from the API
       this.$student_api.deleteStudent(student.id).then( () => {
-        this.updateStudents()
+        this.updateStudent()
         this.mostRecentStudent = {}
       }).catch( () => alert('Unable to delete student'))
     }
